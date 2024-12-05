@@ -2,7 +2,7 @@ event manager applet CGNAT_MONITOR
  event timer watchdog time 300 maxrun 60
  action 010 cli command "enable"
  action 020 cli command "show ip nat statistics | include allocated"
- action 030 regexp "allocated [0-9]+ \\(([0-9]+)%" "$_cli_result" usage_percentage
+ action 030 regexp "allocated [0-9]+ \\(([0-9]+)%" "$_cli_result" match usage_percentage
  action 040 if $usage_percentage ge 95
  action 050  syslog priority critical msg "NAT usage at $usage_percentage%. Clearing NAT translations."
  action 060  cli command "clear ip nat translation *"
